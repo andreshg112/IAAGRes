@@ -5,6 +5,17 @@
  */
 package view;
 
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Deportes
@@ -40,6 +51,8 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
         cbx4Congestion = new javax.swing.JComboBox();
         cbx5Escalofrio = new javax.swing.JComboBox();
         cbx6Estornudo = new javax.swing.JComboBox();
+        btnEvaluar = new javax.swing.JButton();
+        lblRespuesta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +81,13 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
         cbx5Escalofrio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NO", "SI" }));
 
         cbx6Estornudo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NO", "SI" }));
+
+        btnEvaluar.setText("Evaluar");
+        btnEvaluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEvaluarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,6 +122,15 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                         .addComponent(cbx1DolorCabeza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(78, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnEvaluar)
+                        .addGap(168, 168, 168))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,11 +161,68 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cbx6Estornudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEvaluar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEvaluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEvaluarActionPerformed
+        List<String> sintomas = new ArrayList();
+        String linea;
+        sintomas.add(getBinario(cbx1DolorCabeza.getSelectedItem().toString()));
+        sintomas.add(getBinario(cbx2DolorHuesos.getSelectedItem().toString()));
+        sintomas.add(getBinario(cbx3Fiebre.getSelectedItem().toString()));
+        sintomas.add(getBinario(cbx4Congestion.getSelectedItem().toString()));
+        sintomas.add(getBinario(cbx5Escalofrio.getSelectedItem().toString()));
+        sintomas.add(getBinario(cbx6Estornudo.getSelectedItem().toString()));
+        linea = String.join(";", sintomas);
+        System.out.println("Nueva: " + linea);
+        if (estaEnfermo(linea)) {
+            JOptionPane.showMessageDialog(rootPane, "El paciente SI presenta resfriado.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "El paciente NO presenta resfriado.");
+        }
+    }//GEN-LAST:event_btnEvaluarActionPerformed
+
+    public String getBinario(String texto) {
+        return "SI".equals(texto) ? "1" : "0";
+    }
+
+    public boolean estaEnfermo(String nuevosSintomas) {
+        boolean respuesta = false;
+        File archivo;
+        FileReader fr = null;
+        BufferedReader br;
+        try {
+            archivo = new File("resfriado.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String sintomas = linea.substring(0, linea.length() - 2);
+                System.out.println("Guardada: " + sintomas);
+                if (sintomas.equals(nuevosSintomas)) {
+                    return "1".equals(linea.substring(linea.length() - 1));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
+        }
+        return respuesta;
+    }
 
     /**
      * @param args the command line arguments
@@ -152,16 +238,21 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormEvaluacionSintomas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormEvaluacionSintomas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormEvaluacionSintomas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormEvaluacionSintomas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormEvaluacionSintomas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormEvaluacionSintomas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormEvaluacionSintomas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormEvaluacionSintomas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -175,6 +266,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEvaluar;
     private javax.swing.JComboBox cbx1DolorCabeza;
     private javax.swing.JComboBox cbx2DolorHuesos;
     private javax.swing.JComboBox cbx3Fiebre;
@@ -188,5 +280,6 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lblRespuesta;
     // End of variables declaration//GEN-END:variables
 }

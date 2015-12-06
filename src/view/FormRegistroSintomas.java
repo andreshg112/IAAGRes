@@ -5,10 +5,17 @@
  */
 package view;
 
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.List;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -181,20 +188,27 @@ public class FormRegistroSintomas extends javax.swing.JFrame {
         FileWriter fichero = null;
         PrintWriter pw;
         try {
-            fichero = new FileWriter("resfriado.txt");
+            fichero = new FileWriter("resfriado.txt", true);
             pw = new PrintWriter(fichero);
-            List<String> datos = new ArrayList();
-            datos.add(getBinario(cbx1DolorCabeza.getSelectedItem().toString()));
-            datos.add(getBinario(cbx2DolorHuesos.getSelectedItem().toString()));
-            datos.add(getBinario(cbx3Fiebre.getSelectedItem().toString()));
-            datos.add(getBinario(cbx4Congestion.getSelectedItem().toString()));
-            datos.add(getBinario(cbx5Escalofrio.getSelectedItem().toString()));
-            datos.add(getBinario(cbx6Estornudo.getSelectedItem().toString()));
-            datos.add(getBinario(cbxTieneResfriado.getSelectedItem().toString()));
-            String linea = String.join(";", datos);
-            pw.println(linea);
-            System.out.println(linea);
-        } catch (Exception e) {
+            List<String> sintomas = new ArrayList();
+            String linea;
+            sintomas.add(getBinario(cbx1DolorCabeza.getSelectedItem().toString()));
+            sintomas.add(getBinario(cbx2DolorHuesos.getSelectedItem().toString()));
+            sintomas.add(getBinario(cbx3Fiebre.getSelectedItem().toString()));
+            sintomas.add(getBinario(cbx4Congestion.getSelectedItem().toString()));
+            sintomas.add(getBinario(cbx5Escalofrio.getSelectedItem().toString()));
+            sintomas.add(getBinario(cbx6Estornudo.getSelectedItem().toString()));
+            linea = String.join(";", sintomas);
+            System.out.println("Nueva: " + linea);
+            if (estaRegistrado(linea)) {
+                JOptionPane.showMessageDialog(rootPane, "La combinación de síntomas ya se encuentra registrada.");
+            } else {
+                sintomas.add(getBinario(cbxTieneResfriado.getSelectedItem().toString()));
+                linea = String.join(";", sintomas);
+                pw.println(linea);
+                JOptionPane.showMessageDialog(rootPane, "Registrado correctamente.");
+            }
+        } catch (IOException | HeadlessException e) {
             System.out.println(e);
         } finally {
             try {
@@ -209,6 +223,37 @@ public class FormRegistroSintomas extends javax.swing.JFrame {
 
     public String getBinario(String texto) {
         return "SI".equals(texto) ? "1" : "0";
+    }
+
+    public boolean estaRegistrado(String nuevosSintomas) {
+        boolean respuesta = false;
+        File archivo;
+        FileReader fr = null;
+        BufferedReader br;
+        try {
+            archivo = new File("resfriado.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String sintomas = linea.substring(0, linea.length() - 2);
+                System.out.println("Guardada: " + sintomas);
+                if (sintomas.equals(nuevosSintomas)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
+        }
+        return respuesta;
     }
 
     /**
