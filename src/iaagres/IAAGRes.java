@@ -2,7 +2,7 @@ package iaagres;
 
 /**
  *
- * @author Deportes
+ * @author Andres Herrera
  */
 public class IAAGRes {
 
@@ -13,4 +13,9 @@ public class IAAGRes {
         // TODO code application logic here
     }
     
+    public static float[] generarIndividuo() {
+        float[] individuo = null;
+        
+        return individuo;
+    }
 }
