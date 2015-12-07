@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import utilities.RealABinario;
+import utilities.Utilities;
 
 /**
  *
@@ -421,7 +421,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
     public final void mostrarEjemplo() {
         int decimales = Integer.parseInt(cbxDecimales.getSelectedItem().toString());
         String ejemplo
-                = RealABinario.realABinario(0.7, decimales);
+                = Utilities.realABinario(0.7, decimales);
         txtEjemplo.setText(ejemplo);
         int subcadena = decimales + 2;
         txtTamanoSubcadena.setText(Integer.toString(subcadena));
