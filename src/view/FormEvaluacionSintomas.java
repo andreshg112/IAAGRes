@@ -272,7 +272,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(79, Short.MAX_VALUE))))
+                        .addContainerGap(78, Short.MAX_VALUE))))
         );
         panDatosLayout.setVerticalGroup(
             panDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +362,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                 .addGroup(panResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -377,7 +377,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                         .addComponent(panEvaluacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,7 +390,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panResultados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -406,7 +406,8 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
         sintomas.add(getTraduccionBinaria(cbx5Escalofrio.getSelectedItem().toString()));
         sintomas.add(getTraduccionBinaria(cbx6Estornudo.getSelectedItem().toString()));
         linea = String.join(";", sintomas);
-        System.out.println("Nueva: " + linea);
+        operar(Utilities.arrayStringToInt(sintomas));
+        //System.out.println("Nueva: " + linea);
         if (estaEnfermo(linea)) {
             JOptionPane.showMessageDialog(rootPane, "El paciente SI presenta resfriado.");
         } else {
@@ -417,6 +418,12 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
     private void cbxDecimalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDecimalesActionPerformed
         mostrarEjemplo();
     }//GEN-LAST:event_cbxDecimalesActionPerformed
+
+    public final void operar(ArrayList<Integer> sintomas) {
+        ArrayList<Float> individuo = Utilities.generarIndividuo(7);
+        System.out.println(individuo);
+        System.out.println(Utilities.evaluarIndividuo(individuo, sintomas));
+    }
 
     public final void mostrarEjemplo() {
         int decimales = Integer.parseInt(cbxDecimales.getSelectedItem().toString());
@@ -445,7 +452,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String sintomas = linea.substring(0, linea.length() - 2);
-                System.out.println("Guardada: " + sintomas);
+                //System.out.println("Guardada: " + sintomas);
                 if (sintomas.equals(nuevosSintomas)) {
                     return "1".equals(linea.substring(linea.length() - 1));
                 }

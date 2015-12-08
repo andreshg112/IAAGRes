@@ -4,6 +4,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utilities {
 
@@ -22,7 +23,7 @@ public class Utilities {
         }
         return binario;
     }
-    
+
     public static ArrayList<Float> generarIndividuo(int subcadenas) {
         ArrayList<Float> individuo = new ArrayList();
         DecimalFormatSymbols punto = DecimalFormatSymbols.getInstance();
@@ -35,5 +36,30 @@ public class Utilities {
             individuo.add(numeroGenerado);
         }
         return individuo;
+    }
+
+    public static double funcionAptitud(ArrayList<Float> individuo, ArrayList<Integer> entradas) {
+        double resultado = 0;
+        for (int j = 1; j < entradas.size(); j++) {
+            resultado += entradas.get(j) * individuo.get(j);
+        }
+        resultado -= individuo.get(0);
+        return resultado;
+    }
+
+    public static ArrayList<Integer> arrayStringToInt(List<String> datos) {
+        ArrayList<Integer> enteros = new ArrayList();
+        for (String dato : datos) {
+            enteros.add(Integer.parseInt(dato));
+        }
+        return enteros;
+    }
+
+    public static int evaluarIndividuo(ArrayList<Float> individuo, ArrayList<Integer> entradas) {
+        return escalon(funcionAptitud(individuo, entradas));
+    }
+
+    public static int escalon(double valor) {
+        return valor >= 0 ? 1 : 0;
     }
 }
