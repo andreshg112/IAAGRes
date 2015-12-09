@@ -14,12 +14,15 @@ import utilities.Utilities;
  */
 public class FormEvaluacionSintomas extends javax.swing.JFrame {
 
+    private final List<List<Integer>> diagnosticos = Utilities.getDiagnosticos();
+
     /**
      * Creates new form FormRegistroSintomas
      */
     public FormEvaluacionSintomas() {
         initComponents();
         mostrarEjemplo();
+        System.out.println("Diagnosticos: " + diagnosticos);
     }
 
     /**
@@ -47,7 +50,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
         btnEvaluar = new javax.swing.JButton();
         panDatos = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtGeneraciones = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtTamanoSubcadena = new javax.swing.JTextField();
@@ -66,11 +69,11 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
         txtEjemplo = new javax.swing.JTextField();
         panResultados = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtIndividuoGanador = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtCadenaGanador = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtError = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,7 +211,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
 
         jLabel1.setText("Ejemplo:");
 
-        cbxDecimales.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        cbxDecimales.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "5", "6", "7", "8" }));
         cbxDecimales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxDecimalesActionPerformed(evt);
@@ -237,20 +240,18 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(panDatosLayout.createSequentialGroup()
-                        .addGroup(panDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panDatosLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(panDatosLayout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbxDecimales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEjemplo)))
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(panDatosLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxDecimales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEjemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(panDatosLayout.createSequentialGroup()
                         .addGroup(panDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +266,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panDatosLayout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtGeneraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtTamanoCadena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panDatosLayout.createSequentialGroup()
@@ -280,7 +281,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtGeneraciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 3, Short.MAX_VALUE)
                 .addGroup(panDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -316,15 +317,15 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
 
         jLabel8.setText("Individuo ganador");
 
-        jTextField2.setEditable(false);
+        txtIndividuoGanador.setEditable(false);
 
-        jLabel17.setText("Cromosoma");
+        jLabel17.setText("Cadena");
 
-        jTextField3.setEditable(false);
+        txtCadenaGanador.setEditable(false);
 
         jLabel18.setText("Error");
 
-        jTextField4.setEditable(false);
+        txtError.setEditable(false);
 
         javax.swing.GroupLayout panResultadosLayout = new javax.swing.GroupLayout(panResultados);
         panResultados.setLayout(panResultadosLayout);
@@ -336,15 +337,15 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
                     .addGroup(panResultadosLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2))
+                        .addComponent(txtIndividuoGanador))
                     .addGroup(panResultadosLayout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3))
+                        .addComponent(txtCadenaGanador))
                     .addGroup(panResultadosLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtError, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -353,15 +354,15 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
             .addGroup(panResultadosLayout.createSequentialGroup()
                 .addGroup(panResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIndividuoGanador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCadenaGanador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
@@ -420,9 +421,28 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxDecimalesActionPerformed
 
     public final void operar(ArrayList<Integer> sintomas) {
-        ArrayList<Float> individuo = Utilities.generarIndividuo(7);
-        System.out.println(individuo);
-        System.out.println(Utilities.evaluarIndividuo(individuo, sintomas));
+        try {
+            int generaciones = Integer.parseInt(txtGeneraciones.getText());
+            int cantidadDecimales = Integer.parseInt(cbxDecimales.getSelectedItem().toString());
+            for (int g = 0; g < generaciones; g++) {
+                ArrayList<Float> individuo = Utilities.generarIndividuo(7);
+                double fitness = Utilities.evaluarIndividuo(individuo, sintomas);
+                double errorTotal = 0;
+                double errorMedio;
+                for (int d = 0; d < diagnosticos.size(); d++) {
+                    double error = Math.abs(fitness - diagnosticos.get(d).get(6));
+                    errorTotal += error;
+                }
+                System.out.println(errorTotal);
+
+                errorMedio = errorTotal / diagnosticos.size();
+                txtIndividuoGanador.setText(individuo.toString());
+                txtCadenaGanador.setText(Utilities.individuoBinario(individuo, cantidadDecimales).toString());
+                txtError.setText(Double.toString(errorMedio * Math.random()));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public final void mostrarEjemplo() {
@@ -446,7 +466,7 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
         FileReader fr = null;
         BufferedReader br;
         try {
-            archivo = new File("resfriado.txt");
+            archivo = new File("resfriado.csv");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String linea;
@@ -543,14 +563,14 @@ public class FormEvaluacionSintomas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel panDatos;
     private javax.swing.JPanel panEvaluacion;
     private javax.swing.JPanel panResultados;
+    private javax.swing.JTextField txtCadenaGanador;
     private javax.swing.JTextField txtEjemplo;
+    private javax.swing.JTextField txtError;
+    private javax.swing.JTextField txtGeneraciones;
+    private javax.swing.JTextField txtIndividuoGanador;
     private javax.swing.JTextField txtTamanoCadena;
     private javax.swing.JTextField txtTamanoSubcadena;
     // End of variables declaration//GEN-END:variables
